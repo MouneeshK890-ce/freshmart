@@ -4,28 +4,36 @@ import { CgClose } from "react-icons/cg";
 import { MdDeliveryDining } from "react-icons/md";
 import { GiShoppingBag } from "react-icons/gi";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { setCart } from "../Redux/CartSlice";
 
 const CartComp = ({ isOpen, onClose }) => {
-  const { cart } = useSelector((store) => store.cart);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { cart } = useSelector((store) => store.cart);
+
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
 
   const updateQuantity = (cart, productId, action) => {
-    dispatch(setCart(
-      cart.map(item => {
-        if(item.id === productId){
-          let newUnit = item.unit;
-          if(action === "increase"){
-            newUnit += 1;
-          }else if(action === "decrease"){
-            newUnit -= 1;
-          }
-          return newUnit > 0 ? {...item, unit: newUnit} : null;
-        }
-        return item;
-      }).filter(item => item != null) // remove items with quantity 0
-    ));
-  }
+    dispatch(
+      setCart(
+        cart
+          .map((item) => {
+            if (item.id === productId) {
+              let newUnit = item.unit;
+              if (action === "increase") {
+                newUnit += 1;
+              } else if (action === "decrease") {
+                newUnit -= 1;
+              }
+              return newUnit > 0 ? { ...item, unit: newUnit } : null;
+            }
+            return item;
+          })
+          .filter((item) => item != null) // remove items with quantity 0
+      )
+    );
+  };
 
   const totalPrice = cart.reduce(
     (total, item) => total + item.price * item.unit,
@@ -39,10 +47,9 @@ const CartComp = ({ isOpen, onClose }) => {
       } transition-transform duration-300`}
     >
       <h2 className="text-xl px-4 font-bold mb-4 flex justify-between">
-        My Cart{" "}
+        {isAuthenticated ? <p>{user.username}'s Cart</p> : <p>Cart</p>}
         <button onClick={onClose} className="text-red-500 cursor-pointer">
-          {" "}
-          <CgClose />{" "}
+          <CgClose />
         </button>
       </h2>
       <div>
@@ -72,9 +79,19 @@ const CartComp = ({ isOpen, onClose }) => {
                     </p>
                   </div>
                   <div className="flex items-center justify-center text-xl font-semibold px-4 py-1 rounded-md gap-3 mt-2 bg-green-600 text-white">
-                    <button className="cursor-pointer" onClick={() => updateQuantity(cart, item.id, "decrease")}>-</button>
+                    <button
+                      className="cursor-pointer"
+                      onClick={() => updateQuantity(cart, item.id, "decrease")}
+                    >
+                      -
+                    </button>
                     <span>{item.unit}</span>
-                    <button className="cursor-pointer" onClick={() => updateQuantity(cart, item.id, "increase")}>+</button>
+                    <button
+                      className="cursor-pointer"
+                      onClick={() => updateQuantity(cart, item.id, "increase")}
+                    >
+                      +
+                    </button>
                   </div>
                 </div>
               </div>
@@ -121,31 +138,43 @@ const CartComp = ({ isOpen, onClose }) => {
           </div>
         )}
         {cart.length > 0 && (
-            <div className="bg-white rounded-md p-4 mt-3 mb-10">
-              <h1 className="font-semibold">Cancellation Policy</h1>
-              <p className="text-sm text-gray-700 mt-1">
-                Orders cannot be cancelled once packed for delivery. In case of
-                unexpected delays, a refund will be provided, if applicable.
-              </p>
-            </div>
-          )}
+          <div className="bg-white rounded-md p-4 mt-3 mb-10">
+            <h1 className="font-semibold">Cancellation Policy</h1>
+            <p className="text-sm text-gray-700 mt-1">
+              Orders cannot be cancelled once packed for delivery. In case of
+              unexpected delays, a refund will be provided, if applicable.
+            </p>
+          </div>
+        )}
       </div>
-      {
-        cart.length > 0 && (
-          <div className="bg-white rounded-md ">
-            <div className="bg-green-600 text-white w-full py-2 px-3 rounded-md flex justify-between items-center cursor-pointer">
-              <div>
-                <h1 className="font-semibold">₹{totalPrice + 5}</h1>
-                <h1 className="text-gray-100">Total</h1>
-              </div>
-              <div className="flex gap-1 items-center font-semibold">
-                <h1 className="">Login to Proceed</h1>
-                <ChevronRight/>
-              </div>
+      {cart.length > 0 && (
+        <div
+          onClick={() => {
+            if (!isAuthenticated) {
+              navigate("/login");
+            } else {
+              navigate("/checkout");
+            }
+          }}
+          className="bg-white rounded-md "
+        >
+          <div onClick={onClose} className="bg-green-600 text-white w-full py-2 px-3 rounded-md flex justify-between items-center cursor-pointer">
+            <div>
+              <h1 className="font-semibold">₹{totalPrice + 5}</h1>
+              <h1 className="text-gray-100">Total</h1>
+            </div>
+            <div className="flex gap-1 items-center font-semibold">
+              {isAuthenticated ? (
+                <h1 >Proceed to Checkout</h1>
+              ) : (
+                <h1>Login to Proceed</h1>
+              )}
+
+              <ChevronRight />
             </div>
           </div>
-        )
-      }
+        </div>
+      )}
     </div>
   );
 };

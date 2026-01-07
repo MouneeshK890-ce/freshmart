@@ -1,8 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { FaChevronRight } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../Redux/AuthSlice";
 
 const ResponsiveMenu = ({ isNavOpen, setIsNavOpen }) => {
+  const { user, isAuthenticated } = useSelector((store) => store.auth);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   return (
     <div
       className={`${
@@ -13,6 +20,11 @@ const ResponsiveMenu = ({ isNavOpen, setIsNavOpen }) => {
         <div>
           <h1 className="text-green-600 text-3xl font-bold">FreshMart</h1>
         </div>
+
+        {isAuthenticated && user && (
+          <h2 className="mt-3 text-xl font-semibold">Hi, {user.username}</h2>
+        )}
+
         <nav className="mt-12 ">
           <ul className="flex flex-col gap-7 text-xl font-semibold">
             <Link
@@ -43,12 +55,26 @@ const ResponsiveMenu = ({ isNavOpen, setIsNavOpen }) => {
             >
               <li>Contact</li>
             </Link>
-            <Link>
-              <button className="px-3 py-1 w-max rounded-md bg-green-600 text-white flex items-center gap-1">
-                Login
-                <FaChevronRight />
+            {isAuthenticated ? (
+              <button
+                onClick={() => {
+                  dispatch(logout());
+                  navigate("/");
+                  setIsNavOpen(false);
+                }}
+                className="px-3 py-1 w-max cursor-pointer rounded-md bg-blue-500 text-white flex items-center gap-1"
+              >
+                Logut
+                <FaChevronLeft />
               </button>
-            </Link>
+            ) : (
+              <Link to={"/login"} onClick={() => setIsNavOpen(false)}>
+                <button className="px-3 py-1 w-max cursor-pointer rounded-md bg-green-600 text-white flex items-center gap-1">
+                  Login
+                  <FaChevronRight />
+                </button>
+              </Link>
+            )}
           </ul>
         </nav>
       </div>

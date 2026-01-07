@@ -8,6 +8,9 @@ import Contact from './pages/Contact'
 import Footer from './components/Footer'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCart } from './Redux/CartSlice'
+import Login from './pages/Login'
+import Success from "./pages/Success";
+import Checkout from './pages/Checkout'
 
 const App = () => {
 
@@ -26,6 +29,9 @@ const App = () => {
         <Route path='/shop' element={<Shop/>}></Route>
         <Route path='/about' element={<About/>}></Route>
         <Route path='/contact' element={<Contact/>}></Route>
+        <Route path='/login' element={<Login/>}></Route>
+        <Route path='/checkout' element={<Checkout/>}></Route>
+        <Route path="/success" element={<Success />} />
       </Routes>
       <Footer/>
      </Router>
