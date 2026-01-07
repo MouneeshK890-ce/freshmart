@@ -16,7 +16,7 @@ const Hero = () => {
           </p>
           <div className="flex flex-wrap gap-4">
             <Link to={"/shop"}>
-              <button className="bg-white text-green-600 hover:bg-gray-100 rounded-full py-1 px-3 cursor-pointer">
+              <button className="bg-white text-green-600 hover:bg-gray-100 rounded-full py-2 px-3 cursor-pointer">
                 Shop Now
               </button>
             </Link>

@@ -11,7 +11,7 @@ const Template = () => {
         <p className="text-lg mb-6 max-w-2xl mx-auto">
           Use code FRESH10 at checkout for free deliver on orders over ₹100
         </p>
-        <Link>
+        <Link to={'/shop'}>
           <button className="rounded-full cursor-pointer bg-green-600 hover:bg-green-700 text-white px-3 py-2">
             Shop Now!
           </button>
