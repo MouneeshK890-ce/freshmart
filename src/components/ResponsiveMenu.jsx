@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../Redux/AuthSlice";
 
 const ResponsiveMenu = ({ isNavOpen, setIsNavOpen }) => {
-  const { user, isAuthenticated } = useSelector((store) => store.auth);
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

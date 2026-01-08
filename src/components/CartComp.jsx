@@ -10,7 +10,7 @@ import { setCart } from "../Redux/CartSlice";
 const CartComp = ({ isOpen, onClose }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { cart } = useSelector((store) => store.cart);
+  const { cart } = useSelector((state) => state.cart);
 
   const { user, isAuthenticated } = useSelector((state) => state.auth);
 

@@ -6,7 +6,7 @@ import { Flip, toast } from "react-toastify";
 
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
-  const { cart } = useSelector((store) => store.cart);
+  const { cart } = useSelector((state) => state.cart);
 
   const addToCart = (product) => {
     const productExists = cart.some((item) => item.id === product.id);
@@ -16,7 +16,7 @@ const ProductCard = ({ product }) => {
       dispatch(setCart([...cart])); // return the same cart without adding duplicate product
       toast.info("Product is already in the cart", {
         position: "bottom-right",
-        autoClose: 2000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: false,
         pauseOnHover: true,
@@ -29,7 +29,7 @@ const ProductCard = ({ product }) => {
       dispatch(setCart([...cart, product])); // Add products if not already in cart
       toast.success("Product is added to your cart!", {
         position: "bottom-right",
-        autoClose: 2000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: false,
         pauseOnHover: true,

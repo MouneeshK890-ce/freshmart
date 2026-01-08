@@ -13,9 +13,9 @@ const Navbar = () => {
 
   const [isNavOpen, setIsNavOpen] = useState(false);
 
-  const { cart } = useSelector((store) => store.cart);
+  const { cart } = useSelector((state) => state.cart);
 
-  const { isAuthenticated } = useSelector((store) => store.auth);
+  const { isAuthenticated } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
