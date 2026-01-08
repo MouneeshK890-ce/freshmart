@@ -1,16 +1,113 @@
-# React + Vite
+# 🛒 FreshMart – Grocery E-Commerce Web App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+FreshMart is a responsive grocery e-commerce web application that allows users to browse products, manage a shopping cart, and complete a full checkout flow with authentication and protected routes.
 
-Currently, two official plugins are available:
+🌐 **Live Demo:** https://freshmart890.netlify.app
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🚀 Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🧾 Product & Cart
+- Product listing using mock REST API (GitHub-hosted JSON)
+- Add to cart / remove from cart
+- Quantity update with automatic removal at zero quantity
+- Dynamic billing and grand total calculation
+- Cart persistence using `localStorage`
 
-## Expanding the ESLint configuration
+### 🔐 Authentication & Route Protection
+- Frontend authentication (login / logout)
+- Username displayed across the UI
+- Session persistence using `localStorage`
+- Protected checkout route using a reusable `ProtectedRoute` component
+- Prevents unauthorized access via direct URL navigation
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 🛍 Checkout Flow
+- Order summary with item breakdown
+- Delivery details form with validation
+- Place order functionality
+- Success page with generated Order ID
+- Cart cleared after successful order
+
+### 📱 UI & UX
+- Fully responsive design (desktop & mobile)
+- Slide-in cart panel
+- Mobile-friendly responsive navigation
+- Loading and error states
+- Clean and user-friendly UI
+
+---
+
+## 🧠 Tech Stack
+
+- **Frontend:** React.js
+- **State Management:** Redux Toolkit
+- **Routing:** React Router DOM
+- **Styling:** Tailwind CSS
+- **Icons:** Lucide React, React Icons
+- **Deployment:** Netlify
+
+---
+
+## 🗂 Project Structure
+src/
+├── components/
+│ ├── Navbar
+│ ├── CartComp
+│ ├── ResponsiveMenu
+│ └── ProtectedRoute
+├── pages/
+│ ├── Home
+│ ├── Shop
+│ ├── About
+│ ├── Contact
+│ ├── Login
+│ ├── Checkout
+│ └── Success
+├── redux/
+│ ├── CartSlice
+│ ├── AuthSlice
+│ └── store.js
+
+
+---
+
+## 🔐 Authentication & Protected Route Logic
+
+- Authentication state is managed using Redux
+- Login session is persisted using `localStorage`
+- Checkout route is wrapped inside a `ProtectedRoute` component
+- Unauthorized users are redirected to the login page when attempting to access protected routes
+- UI-level checks guide users, while route-level protection enforces access control
+
+---
+
+## 🧪 How to Run Locally
+
+```bash
+git clone https://github.com/your-username/freshmart.git
+cd freshmart
+npm install
+npm start
+
+## 🌱 Future Enhancements
+
+- Payment gateway integration  
+- Order history page  
+- Saved delivery addresses  
+- Backend integration (Node.js / Firebase)  
+- Admin dashboard  
+
+---
+
+## 👨‍💻 Author
+
+**Mouneesh**  
+Frontend Developer  
+Passionate about building responsive, scalable, and user-friendly web applications.
+
+---
+
+## ⭐ Summary
+
+This project was built to practice real-world frontend concepts including state management, authentication flow, protected routes, cart persistence, and UX-driven design.
