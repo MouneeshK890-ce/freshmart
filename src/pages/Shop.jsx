@@ -38,7 +38,7 @@ const Shop = () => {
   return (
     <div className="max-w-6xl mx-auto flex flex-col lg:gap-6 my-7 lg:mt-28 mt-24 h-max">
       {/* Filter Section */}
-      <div className="col-span-1 p-4 bg-gray-100 h-max rounded-lg fixed w-70 mb-10 hidden md:block">
+      <div className="col-span-1 p-4 bg-gray-100 h-max rounded-lg fixed w-70 mb-10 hidden lg:block">
         <h2 className="text-lg font-semibold mb-4"></h2>
         <input
           placeholder="Search..."
@@ -84,7 +84,7 @@ const Shop = () => {
       </div>
       {/* Mobile filter */}
       <div
-        className={`md:hidden bg-gray-100 flex justify-between items-center mx-4 px-4 py-3 ${
+        className={`lg:hidden bg-gray-100 flex justify-between items-center mx-4 md:mb-6 px-4 py-3 ${
           openFilter ? "rounded-t-md" : "rounded-md"
         }`}
       >

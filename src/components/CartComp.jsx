@@ -1,5 +1,5 @@
 import { ChevronRight, LucideNotebookText } from "lucide-react";
-import React from "react";
+import React, { useEffect } from "react";
 import { CgClose } from "react-icons/cg";
 import { MdDeliveryDining } from "react-icons/md";
 import { GiShoppingBag } from "react-icons/gi";
@@ -13,6 +13,10 @@ const CartComp = ({ isOpen, onClose }) => {
   const { cart } = useSelector((state) => state.cart);
 
   const { user, isAuthenticated } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "auto";
+  }, [isOpen]);
 
   const updateQuantity = (cart, productId, action) => {
     dispatch(
@@ -42,9 +46,12 @@ const CartComp = ({ isOpen, onClose }) => {
 
   return (
     <div
-      className={`fixed overflow-y-scroll top-0 right-0 h-full w-100 bg-gray-100 shadow-lg p-4 transform z-50 ${
-        isOpen ? "translate-x-0" : "translate-x-full"
-      } transition-transform duration-300`}
+      className={`fixed right-0 inset-y-0 z-50
+  w-full sm:w-105
+  bg-gray-100 shadow-lg p-4
+  transform transition-transform duration-300
+  ${isOpen ? "translate-x-0" : "translate-x-full"}
+  min-h-dvh overflow-y-auto overscroll-contain`}
     >
       <h2 className="text-xl px-4 font-bold mb-4 flex justify-between">
         {isAuthenticated ? <p>{user.username}'s Cart</p> : <p>Cart</p>}
@@ -158,14 +165,17 @@ const CartComp = ({ isOpen, onClose }) => {
           }}
           className="bg-white rounded-md "
         >
-          <div onClick={onClose} className="bg-green-600 text-white w-full py-2 px-3 rounded-md flex justify-between items-center cursor-pointer">
+          <div
+            onClick={onClose}
+            className="bg-green-600 text-white w-full py-2 px-3 rounded-md flex justify-between items-center cursor-pointer"
+          >
             <div>
               <h1 className="font-semibold">₹{totalPrice + 5}</h1>
               <h1 className="text-gray-100">Total</h1>
             </div>
             <div className="flex gap-1 items-center font-semibold">
               {isAuthenticated ? (
-                <h1 >Proceed to Checkout</h1>
+                <h1>Proceed to Checkout</h1>
               ) : (
                 <h1>Login to Proceed</h1>
               )}
